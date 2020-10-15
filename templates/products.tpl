@@ -7,18 +7,19 @@
 
                 {foreach from=$categorias item=category}
     
-                    <li class="list-group-item">{$category->name_caegory|upper}<button type="button" class="btn btn-outline-danger"><a href="delete/{$category->id_category}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$category->id_category}">Editar</a></button></li>
+                    <li class="list-group-item">{$category->name_caegory|upper}<button type="button" class="btn btn-outline-danger"><a href="deleteCategory/{$category->id_category}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editCategory/{$category->id_category}">Editar</a></button></li>
     
                 {/foreach}
 
             </ul>
+            <input type="submit" class="btn btn-info mt-2" value="Guardar cambios" id="id_btnSave">
 
         </div>
-        <form action="insertar" method="POST" class="my-4">
+        <form action="insertCategory" method="POST" class="my-4">
             <div class="col-6">
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input name="name" type="text" class="form-control" id="id_name_Cat">
+                    <input name="name_caegory" type="text" class="form-control" id="id_name_Cat">
                     <input type="submit" class="btn btn-info mt-2" value="Insertar Categoria" id="id_btnAgregarCat">
                 </div>
             </div>
@@ -27,7 +28,7 @@
 
         <h2>PRODUCTOS</h2>
 
-        <form action="agregar" method="POST" class="my-4">
+        <form action="insert" method="POST" class="my-4">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -63,9 +64,8 @@
                     <label class="input-group-text" for="selectCategory">Options</label>
                 </div>
                 <select class="custom-select" id="id_mostrar" name="id_category">
-                    <option selected>Seleccionar</option>
                     {foreach from=$categorias item=category}
-                        <option value="{$category->name_caegory}">{$category->name_caegory}</option>
+                        <option value="{$category->id_category}">{$category->name_caegory}</option>
                     {/foreach}
                 </select>
             </div>
@@ -80,7 +80,6 @@
             <div class="input-group mb-3">
 
                 <ul class="list-group">
-
                     {foreach from=$categorias item=category}
                         <li class="list-group-item"><button type="button"><a href="productos/{$category->id_category}">{$category->name_caegory}</a></button></li>
                     {/foreach}
@@ -106,7 +105,7 @@
                         <!--<td scope="col">{$product->price}</td>-->
                         <!--<td scope="col">{$product->stock}</td>-->
                         <td scope="col">{$product->name_caegory}</td>
-                        <td scope="col"><button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button></td>
+                        <td scope="col"><button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button> | <a href="detail/{$product->id_product}">Ver más</a></td>
                     </tr>
                 {/foreach}
             </tbody>

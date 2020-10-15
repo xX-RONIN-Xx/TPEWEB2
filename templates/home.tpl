@@ -8,21 +8,21 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="../tp1/img/among.jpg" class="d-block w-100" alt="...">
+                <img src="../img/among.jpg" class="d-block w-100" alt="amongus">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="../tp1/img/dragon.jpg" class="d-block w-100" alt="...">
+                <img src="../img/dragon.jpg" class="d-block w-100" alt="dragon">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="../tp1/img/iron.jpg" class="d-block w-100" alt="...">
+                <img src="../img/iron.jpg" class="d-block w-100" alt="Iron Man">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
