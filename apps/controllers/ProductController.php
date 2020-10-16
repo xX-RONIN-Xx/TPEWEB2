@@ -22,12 +22,22 @@ class ProductController
     function EditProduct($params=null){
         $id=$params[':ID'];
         $product = $this->model->getProduct($id);
+        $products = $this->model->getProducts();
         $categorias = $this->model->getCategories();
-        $this->view->showEditProduct($product,$categorias);
+        $this->view->showEditProduct($products,$categorias,$product);
+       
     }
 
-    function UpdateProduct($params = null){
+        //$nameCategoryEdit=$this->model->getCategoryAll($id);
+       // $products = $this->model->getProducts();
+        //$categories = $this->model->getCategories();
+        //$this->view->showUpdateCategory($products,$categories,$nameCategoryEdit);
+    
 
+    ////////////////////////////////////////////////
+
+    function UpdateProduct($params = null){
+        header ("Location: " . BASE_URL . "productos");
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
@@ -39,6 +49,7 @@ class ProductController
         $categories= $this->model->getCategories();
         //header ("Location: " . BASE_URL . "productos");
         $this->view->showProductsView($products, $categories);
+        
     }
 
     function showAllProducts()
@@ -47,6 +58,7 @@ class ProductController
         $products = $this->model->getProducts();
         $categories = $this->model->getCategories();
         $this->view->showProductsView($products, $categories);
+        
     }
 
     function showDetailProduct($params = null)
@@ -64,13 +76,14 @@ class ProductController
     function showProductsByCategory($params = null)
     {
         //var_dump($params);
-        var_dump($params[':ID']);
+        
         if (isset($params[':ID'])) {
 
             $categoryID = $params[':ID'];
             $products = $this->model->getProductsByCategory($categoryID);
             $categories = $this->model->getCategories();
             $this->view->showProductsView($products, $categories);
+           
         }
     }
 
@@ -96,11 +109,6 @@ class ProductController
 
     //Categorías
     //////////////////////////
-    /*function showACategories(){
-
-        $categories = $this->model->getCategories();
-        $this->view->showProductsByCategoryView($categories);
-    }*/
 
     function InsertCategory()
     {
@@ -117,23 +125,21 @@ class ProductController
         header("Location: " . BASE_URL . "productos");
     }
 
-    /*function UpdateCategory($params = null)
+    function UpdateCategory()
     {
-        $id = $params[':ID'];
-        $category = $this->model->editCategory($id);
+        $id = $_POST['id_cat'];
+        $name = $_POST['name_cat'];
+        $this->model->editCategorybyId($name,$id);
         header("Location: " . BASE_URL . "productos");
     }
 
-    function editCategory()
+    function editCategory($params=null)
     {
-        $categoria = $_POST['name_caegory'];
-
-        /*if (empty($categoria)) {
-            $this->view->showError('Por favor, complete el nombre de la categoría');
-            die();
-        }
-        $this->model->EditCategory($categoria);
-        header("Location: " . BASE_URL . "productos");
-    }*/
+        $id=$params[':ID'];
+        $nameCategoryEdit=$this->model->getCategoryAll($id);
+        $products = $this->model->getProducts();
+        $categories = $this->model->getCategories();
+        $this->view->showUpdateCategory($products,$categories,$nameCategoryEdit);
+    }
     
 }

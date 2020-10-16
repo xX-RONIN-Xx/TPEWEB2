@@ -12,14 +12,13 @@
                 {/foreach}
 
             </ul>
-            <input type="submit" class="btn btn-info mt-2" value="Guardar cambios" id="id_btnSave">
 
         </div>
         <form action="insertCategory" method="POST" class="my-4">
             <div class="col-6">
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input name="name_caegory" type="text" class="form-control" id="id_name_Cat">
+                    <input name="name_caegory" type="text" class="form-control" id="id_name_Cat" value="">
                     <input type="submit" class="btn btn-info mt-2" value="Insertar Categoria" id="id_btnAgregarCat">
                 </div>
             </div>
@@ -75,41 +74,43 @@
 
         </form>
 
-        <form action="productos" method="GET" class="my-4">
-            <h2>Filtrar categorias</h2>
-            <div class="input-group mb-3">
 
-                <ul class="list-group">
-                    {foreach from=$categorias item=category}
-                        <li class="list-group-item"><button type="button"><a href="productos/{$category->id_category}">{$category->name_caegory}</a></button></li>
-                    {/foreach}
-                </ul>
+        <h2>Filtrar categorias</h2>
+        <div>
+            <form action="productos" method="GET" class="my-4">
+                <div class="input-group mb-3">
+                    <ul class="nav justify-content-center">
+                        {foreach from=$categorias item=category}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="filtrar/{$category->id_category}">
+                                    <h4>{$category->name_caegory}</h4>
+                                </a>
+                            </li>
+                        {/foreach}
+                    </ul>
+                </div>
 
-            </div>
+            </form>
 
-        </form>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Categoria</th>
-                </tr>
-            </thead>
-            <tbody id="id_tblProductos">
-                {foreach from=$products item=product}
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td scope="col">{$product->name}</td>
-                        <td scope="col">{$product->description}</td>
-                        <!--<td scope="col">{$product->price}</td>-->
-                        <!--<td scope="col">{$product->stock}</td>-->
-                        <td scope="col">{$product->name_caegory}</td>
-                        <td scope="col"><button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button> | <a href="detail/{$product->id_product}">Ver más</a></td>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Categoria</th>
                     </tr>
-                {/foreach}
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="id_tblProductos">
+                    {foreach from=$products item=product}
+                        <tr>
+                            <td scope="col">{$product->name}</td>
+                            <td scope="col">{$product->description}</td>
+                            <td scope="col">{$product->name_caegory}</td>
+                            <td scope="col"><button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button> | <a href="detail/{$product->id_product}">Ver más</a></td>
+                        </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-{include 'footer.tpl'}
+    {include 'footer.tpl'}

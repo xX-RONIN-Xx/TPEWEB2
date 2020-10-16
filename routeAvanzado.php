@@ -6,18 +6,18 @@
     define("BASE_URL", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/');
     define("LOGIN", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/login');
     define("LOGOUT", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/logout');
-
    
     $r = new Router();
 
     // rutas
     $r->addRoute("home", "GET", "ProductController", "Home");
     $r->addRoute("productos", "GET", "ProductController", "showAllProducts");
+    $r->addRoute("filtrar/:ID", "GET", "ProductController", "showProductsByCategory");
+    $r->addRoute("detail/:ID", "GET", "ProductController", "showDetailProduct");
+    // acceso
     $r->addRoute("login", "GET", "UserController", "Login");
     $r->addRoute("logout", "GET", "UserController", "Logout");
     $r->addRoute("verify", "POST", "UserController", "VerifyUser");
-    $r->addRoute("productos/:ID", "GET", "ProductController", "showProductsByCategory");
-    $r->addRoute("detail/:ID", "GET", "ProductController", "showDetailProduct");
 
     ///////
     //Productos ABM
@@ -29,9 +29,8 @@
     //Categorias ABM
     $r->addRoute("insertCategory", "POST", "ProductController", "InsertCategory");
     $r->addRoute("deleteCategory/:ID", "GET", "ProductController", "DeleteCategory");
-    //$r->addRoute("updateCategory/:ID", "POST", "ProductController", "UpdateCategory");
     $r->addRoute("editCategory/:ID", "GET", "ProductController", "editCategory");
-    $r->addRoute("updateCategory", "POST", "ProductController", "UpdateCategory");
+    $r->addRoute("editCategory/updateCategory", "POST", "ProductController", "UpdateCategory");
 
     //Ruta por defecto.
     $r->setDefaultRoute("ProductController", "Home");
