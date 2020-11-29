@@ -21,8 +21,8 @@ class Productmodel
 
     function getProduct($id_producto)
     {
-
-        $query = $this->db->prepare('SELECT name, description, price, stock, name_caegory FROM products JOIN categories ON categories.id_category = products.id_category and products.id_product=?');
+        //$query = $this->db->prepare('SELECT name, description, price, stock, name_caegory FROM products JOIN categories ON categories.id_category = products.id_category and products.id_product=?');
+        $query = $this->db->prepare('SELECT * FROM products JOIN categories ON categories.id_category = products.id_category and products.id_product=?');
         $query->execute(array($id_producto));
         return $query->fetch(PDO::FETCH_OBJ);
     }
@@ -67,8 +67,8 @@ class Productmodel
 
     function EditProduct($name, $description, $price, $stock, $category, $id)
     {
-        // $query = $this->db->prepare('UPDATE products SET  name=?, description=?, price=?, stock=?, id_category=? WHERE id_product');
-        $query = $this->db->prepare("UPDATE `products` SET `name`=?, `description`=?, `price`=?, `stock`=?, `id_product`=? WHERE `id_product`=?");
+        //$query = $this->db->prepare('UPDATE products SET  name=?, description=?, price=?, stock=?, id_category=? WHERE id_product=?');
+        $query = $this->db->prepare("UPDATE `products` SET `name`=?, `description`=?, `price`=?, `stock`=?, `id_category`=? WHERE `id_product`=?");
         $query->execute(array($name, $description, $price, $stock, $category, $id));
     }
 
@@ -91,6 +91,14 @@ class Productmodel
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    function getAllCategories()
+    {
+        $query = $this->db->prepare('SELECT name_caegory FROM categories');
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+
     function addCategory($name_caegory)
     {
         var_dump($name_caegory);
@@ -105,11 +113,13 @@ class Productmodel
         $query->execute(array($id));
     }
 
-    function editCategorybyId($name, $id)
+    function editCategorybyId($name,$id)
     {
 
+        //$query = $this->db->prepare("UPDATE `categories` SET name_caegory=? WHERE id_category=?");
         $query = $this->db->prepare("UPDATE categories SET name_caegory=? WHERE id_category=?");
-        $query->execute(array($name, $id));
+        $query->execute(array($name,$id));
+        
     }
 
     function getCategoryAll($id)

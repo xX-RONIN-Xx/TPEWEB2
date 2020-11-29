@@ -33,7 +33,7 @@
     $r->addRoute("editCategory/updateCategory", "POST", "ProductController", "UpdateCategory");
 
     //Ruta por defecto.
-    $r->setDefaultRoute("ProductController", "Home");
+    $r->setDefaultRoute("ProductController", "showAllProducts");
     //run
     $r->route($_GET['action'], $_SERVER['REQUEST_METHOD']); 
 ?>

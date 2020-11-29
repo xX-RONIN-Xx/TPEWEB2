@@ -1,0 +1,23 @@
+.catStyle{
+    padding-left: 50px;
+}
+li{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+button a{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+button a:hover{
+    text-decoration: none;
+    color: blanchedalmond;
+    font-size: large;
+}
+#categ li{
+    display: flex;
+    justify-content: space-between;
+}

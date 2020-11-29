@@ -13,7 +13,7 @@
             </ul>
         </div>
     </div>-->
-    <form action="updateCategory" method="POST" class="my-4">
+    <form action="editCategory/updateCategory" method="POST" class="my-4">
         <div class="col-6">
             <div class="form-group">
                 <label>Nombre</label>

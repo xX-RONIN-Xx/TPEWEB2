@@ -37,13 +37,13 @@ class ProductController
     ////////////////////////////////////////////////
 
     function UpdateProduct($params = null){
-        header ("Location: " . BASE_URL . "productos");
+        //header ("Location: " . BASE_URL . "productos");
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
         $category = $_POST['id_category'];
-        $id = $params[':ID'];
+        $id = $_POST['id'];
         $this->model->EditProduct($name, $description, $price, $stock, $category, $id);
         $products= $this->model->getProducts();
         $categories= $this->model->getCategories();
@@ -54,7 +54,6 @@ class ProductController
 
     function showAllProducts()
     {
-
         $products = $this->model->getProducts();
         $categories = $this->model->getCategories();
         $this->view->showProductsView($products, $categories);
@@ -75,15 +74,19 @@ class ProductController
 
     function showProductsByCategory($params = null)
     {
-        //var_dump($params);
         
         if (isset($params[':ID'])) {
-
-            $categoryID = $params[':ID'];
-            $products = $this->model->getProductsByCategory($categoryID);
-            $categories = $this->model->getCategories();
-            $this->view->showProductsView($products, $categories);
-           
+            
+            if($params[':ID']=='Todos'){
+                $products = $this->model->getProducts();
+                $categories = $this->model->getCategories();
+                $this->view->showProductsView($products, $categories);
+            }else{
+                $categoryID = $params[':ID'];
+                $products = $this->model->getProductsByCategory($categoryID);
+                $categories = $this->model->getCategories();
+                $this->view->showProductsView($products, $categories);
+            }
         }
     }
 
@@ -129,17 +132,23 @@ class ProductController
     {
         $id = $_POST['id_cat'];
         $name = $_POST['name_cat'];
+        $categoriesSaved=$this->model->getAllCategories();
+        foreach (($categoriesSaved) as $cat ) {
+        
+            if(strtoupper($cat)==strtoupper($name)){
+                $this->view->showError("la categoria ya existe"); 
+                return;
+            }
+        }
         $this->model->editCategorybyId($name,$id);
-        header("Location: " . BASE_URL . "productos");
+        header("Location: " . BASE_URL . "productos");  
     }
 
     function editCategory($params=null)
     {
         $id=$params[':ID'];
         $nameCategoryEdit=$this->model->getCategoryAll($id);
-        $products = $this->model->getProducts();
-        $categories = $this->model->getCategories();
-        $this->view->showUpdateCategory($products,$categories,$nameCategoryEdit);
+        $this->view->showUpdateCategory($nameCategoryEdit);
     }
     
 }

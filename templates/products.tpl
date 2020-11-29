@@ -3,11 +3,11 @@
     <h2>Categorias</h2>
     <div>
         <div class="input-group mb-3">
-            <ul class="list-group">
+            <ul class="list-group" id="categ">
 
                 {foreach from=$categorias item=category}
     
-                    <li class="list-group-item">{$category->name_caegory|upper}<button type="button" class="btn btn-outline-danger"><a href="deleteCategory/{$category->id_category}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editCategory/{$category->id_category}">Editar</a></button></li>
+                    <li class="list-group-item">{$category->name_caegory|upper}<span class="catStyle"><button type="button" class="btn btn-outline-danger btn-sm"><a href="deleteCategory/{$category->id_category}">Borrar</a></button><button type="button" class="btn btn-outline-warning btn-sm"><a href="editCategory/{$category->id_category}">Editar</a></button></span></li>
     
                 {/foreach}
 
@@ -87,6 +87,9 @@
                                 </a>
                             </li>
                         {/foreach}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="filtrar/Todos">
+                                    <h4>Todos</h4>
                     </ul>
                 </div>
 

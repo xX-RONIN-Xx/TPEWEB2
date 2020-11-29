@@ -31,7 +31,7 @@ class ProductView{
         $this->smarty->display('templates/products.tpl');
     }
     function showEditProduct($products,$categories,$product){
-        $this->smarty->assign('products', $product);
+        $this->smarty->assign('product', $product);
         $this->smarty->assign('Seleccionar', $product->name_caegory);
         $this->smarty->assign('categorias', $categories);
         $this->smarty->display('templates/editProduct.tpl');
@@ -47,14 +47,18 @@ class ProductView{
     }
 
 //categoria////////
-    function showUpdateCategory($products,$categories,$nameCategoryEdit){
-        $this->smarty->assign('products', $products);
+    function showUpdateCategory($nameCategoryEdit){
+        //$this->smarty->assign('products', $products);
         $this->smarty->assign('categoriaEdit', $nameCategoryEdit);
-        $this->smarty->assign('categorias', $categories);
+        //$this->smarty->assign('categorias', $categories);
         $this->smarty->display('templates/categorias.tpl');
 
     }
-
+    function showError($error_e){
+        $this->smarty->assign('error',$error_e);
+        $this->smarty->assign('Back','productos');
+        $this->smarty->display('templates/error.tpl');
+    }
 
 
 }
