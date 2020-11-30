@@ -30,7 +30,7 @@ class ProductView{
         $this->smarty->assign('categorias', $categories);
         $this->smarty->display('templates/products.tpl');
     }
-    function showEditProduct($products,$categories,$product){
+    function showEditProduct($categories,$product){
         $this->smarty->assign('product', $product);
         $this->smarty->assign('Seleccionar', $product->name_caegory);
         $this->smarty->assign('categorias', $categories);

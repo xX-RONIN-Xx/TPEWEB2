@@ -1,16 +1,18 @@
 <?php
 require_once './apps/models/ProductModel.php';
 require_once './apps/views/ProductView.php';
+require_once './apps/models/CategoryModel.php';
 
 class ProductController
 {
     private $model;
     private $view;
-
+    private $modelCat;
     public function __construct()
     {
         $this->model = new ProductModel();
         $this->view = new ProductView();
+        $this->modelCat=new CategoryModel();
     }
 
     function Home()
@@ -22,10 +24,8 @@ class ProductController
     function EditProduct($params=null){
         $id=$params[':ID'];
         $product = $this->model->getProduct($id);
-        $products = $this->model->getProducts();
-        $categorias = $this->model->getCategories();
-        $this->view->showEditProduct($products,$categorias,$product);
-       
+        $categorias = $this->modelCat->getCategories();
+        $this->view->showEditProduct($categorias,$product);
     }
 
         //$nameCategoryEdit=$this->model->getCategoryAll($id);
@@ -36,7 +36,7 @@ class ProductController
 
     ////////////////////////////////////////////////
 
-    function UpdateProduct($params = null){
+    function UpdateProduct(){
         //header ("Location: " . BASE_URL . "productos");
         $name = $_POST['name'];
         $description = $_POST['description'];
@@ -44,25 +44,28 @@ class ProductController
         $stock = $_POST['stock'];
         $category = $_POST['id_category'];
         $id = $_POST['id'];
+        var_dump($name);
+        var_dump($description);
+        var_dump($price);
+        var_dump($stock);
+        var_dump($category);
+        var_dump($id);
+        //die();
+
         $this->model->EditProduct($name, $description, $price, $stock, $category, $id);
-        $products= $this->model->getProducts();
-        $categories= $this->model->getCategories();
-        //header ("Location: " . BASE_URL . "productos");
-        $this->view->showProductsView($products, $categories);
-        
+        header ("Location: " . BASE_URL . "productos");
     }
 
     function showAllProducts()
     {
         $products = $this->model->getProducts();
-        $categories = $this->model->getCategories();
+        $categories = $this->modelCat->getCategories();
         $this->view->showProductsView($products, $categories);
         
     }
 
     function showDetailProduct($params = null)
     {
-
         if (isset($params[':ID'])) {
 
             $id_product = $params[':ID'];
@@ -78,13 +81,11 @@ class ProductController
         if (isset($params[':ID'])) {
             
             if($params[':ID']=='Todos'){
-                $products = $this->model->getProducts();
-                $categories = $this->model->getCategories();
-                $this->view->showProductsView($products, $categories);
+                header("Location: " . BASE_URL . "productos");
             }else{
                 $categoryID = $params[':ID'];
                 $products = $this->model->getProductsByCategory($categoryID);
-                $categories = $this->model->getCategories();
+                $categories = $this->modelCat->getCategories();
                 $this->view->showProductsView($products, $categories);
             }
         }
@@ -124,7 +125,7 @@ class ProductController
     function DeleteCategory($params = null)
     {
         $id = $params[':ID'];
-        $this->model->removeCategory($id);
+        $this->modelCat->removeCategory($id);
         header("Location: " . BASE_URL . "productos");
     }
 
@@ -132,7 +133,7 @@ class ProductController
     {
         $id = $_POST['id_cat'];
         $name = $_POST['name_cat'];
-        $categoriesSaved=$this->model->getAllCategories();
+        $categoriesSaved=$this->modelCat->getAllCategories();
         foreach (($categoriesSaved) as $cat ) {
         
             if(strtoupper($cat)==strtoupper($name)){
@@ -140,14 +141,14 @@ class ProductController
                 return;
             }
         }
-        $this->model->editCategorybyId($name,$id);
+        $this->modelCat->editCategorybyId($name,$id);
         header("Location: " . BASE_URL . "productos");  
     }
 
     function editCategory($params=null)
     {
         $id=$params[':ID'];
-        $nameCategoryEdit=$this->model->getCategoryAll($id);
+        $nameCategoryEdit=$this->modelCat->getCategoryAll($id);
         $this->view->showUpdateCategory($nameCategoryEdit);
     }
     
