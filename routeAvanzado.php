@@ -12,12 +12,13 @@
     // rutas
     $r->addRoute("home", "GET", "ProductController", "Home");
     $r->addRoute("productos", "GET", "ProductController", "showAllProducts");
+    $r->addRoute("productos/admin", "GET", "ProductController", "showAdminProducts");
     $r->addRoute("filtrar/:ID", "GET", "ProductController", "showProductsByCategory");
     $r->addRoute("detail/:ID", "GET", "ProductController", "showDetailProduct");
     // acceso
     $r->addRoute("login", "GET", "UserController", "Login");
     $r->addRoute("logout", "GET", "UserController", "Logout");
-    $r->addRoute("verify", "POST", "UserController", "VerifyUser");
+    $r->addRoute("verify", "POST", "UserController", "loginUser");
 
     ///////
     //Productos ABM
@@ -31,6 +32,16 @@
     $r->addRoute("deleteCategory/:ID", "GET", "ProductController", "DeleteCategory");
     $r->addRoute("editCategory/:ID", "GET", "ProductController", "editCategory");
     $r->addRoute("editCategory/updateCategory", "POST", "ProductController", "UpdateCategory");
+
+    //registro
+    $r->addRoute("registrarse","GET","UserController","showRegistro");
+    $r->addRoute("register","POST","UserController","register");
+
+    //admin
+   /* $r->addRoute("borrarUser/:ID", "GET", "LoginController", "BorrarUser");
+    $r->addRoute("usuarios", "GET", "LoginController", "GetUsuarios");
+    $r->addRoute("administrador", "POST", "LoginController", "AgregarAdmin");*/
+
 
     //Ruta por defecto.
     $r->setDefaultRoute("ProductController", "showAllProducts");

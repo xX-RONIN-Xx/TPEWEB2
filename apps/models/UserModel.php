@@ -16,4 +16,19 @@ class UserModel
         $query->execute(array($user));
         return $query->fetch(PDO::FETCH_OBJ);
     }
+
+    function getUsers()
+    {
+        $query = $this->db->prepare("SELECT * FROM users");
+        $query->execute();
+        $users=$query->fetchAll(PDO::FETCH_OBJ);
+        return $users;
+    }
+
+    function addUser($email,$password){
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        
+            $query = $this->db->prepare("INSERT INTO users(email,password) VALUES(?,?)");
+            $query->execute(array($email,$hash));
+        }
 }

@@ -13,6 +13,13 @@ class ProductController
         $this->view = new ProductView();
     }
 
+    private function checkLoggin(){
+    session_start();
+    if(!isset($_SESSION["user"])){
+        header("Location:". LOGIN);
+        die();
+    }
+}
     function Home()
     {
         $this->view->viewHome();
@@ -22,9 +29,11 @@ class ProductController
     function EditProduct($params=null){
         $id=$params[':ID'];
         $product = $this->model->getProduct($id);
-        $products = $this->model->getProducts();
+        //$products = $this->model->getProducts();
         $categorias = $this->model->getCategories();
-        $this->view->showEditProduct($products,$categorias,$product);
+        //$this->view->showEditProduct($products,$categorias,$product);
+        $this->view->showEditProduct($categorias,$product);
+       
        
     }
 
@@ -45,10 +54,9 @@ class ProductController
         $category = $_POST['id_category'];
         $id = $_POST['id'];
         $this->model->EditProduct($name, $description, $price, $stock, $category, $id);
-        $products= $this->model->getProducts();
-        $categories= $this->model->getCategories();
-        //header ("Location: " . BASE_URL . "productos");
-        $this->view->showProductsView($products, $categories);
+       
+        header ("Location: " . BASE_URL . "productos");
+    
         
     }
 
@@ -57,6 +65,14 @@ class ProductController
         $products = $this->model->getProducts();
         $categories = $this->model->getCategories();
         $this->view->showProductsView($products, $categories);
+        
+    }
+
+    function showAdminProducts()
+    {
+        $products = $this->model->getProducts();
+        $categories = $this->model->getCategories();
+        $this->view->showProductsAdmin($products, $categories);
         
     }
 

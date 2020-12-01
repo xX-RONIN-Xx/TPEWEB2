@@ -67,8 +67,8 @@ class Productmodel
 
     function EditProduct($name, $description, $price, $stock, $category, $id)
     {
-        //$query = $this->db->prepare('UPDATE products SET  name=?, description=?, price=?, stock=?, id_category=? WHERE id_product=?');
-        $query = $this->db->prepare("UPDATE `products` SET `name`=?, `description`=?, `price`=?, `stock`=?, `id_category`=? WHERE `id_product`=?");
+        $query = $this->db->prepare('UPDATE products SET  name=?, description=?, price=?, stock=?, id_category=? WHERE id_product=?');
+        //$query = $this->db->prepare("UPDATE `products` SET `name`=?, `description`=?, `price`=?, `stock`=?, `id_category`=? WHERE `id_product`=?");
         $query->execute(array($name, $description, $price, $stock, $category, $id));
     }
 

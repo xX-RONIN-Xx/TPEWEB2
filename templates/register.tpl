@@ -1,10 +1,10 @@
 {include 'header.tpl'}
-
+{$error}
 <div class="container">
     <!-- inicio del contenido pricipal -->
 
     <div class="mt-5 w-25 mx-auto">
-        <form method="POST" action=verify>
+        <form method="POST" action=register>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
@@ -19,10 +19,8 @@
                     {$error}
                 </div>
             {/if}
-
-            <button type="submit" class="btn btn-primary">Login</button>
             
-            <button><a href = "registrarse">Registrarse</a></button>
+            <button type="submit">Registrarse</button>
         
         </form>
     </div>

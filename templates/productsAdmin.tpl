@@ -1,6 +1,6 @@
 {include 'header.tpl'}
 <div class="container">
-   <!-- <h2>Categorias</h2>
+    <h2>Categorias</h2>
     <div>
         <div class="input-group mb-3">
             <ul class="list-group" id="categ">
@@ -22,12 +22,12 @@
                     <input type="submit" class="btn btn-info mt-2" value="Insertar Categoria" id="id_btnAgregarCat">
                 </div>
             </div>
-        </form>-->
+        </form>
 
 
         <h2>PRODUCTOS</h2>
 
-       <!-- <form action="insert" method="POST" class="my-4">
+        <form action="insert" method="POST" class="my-4">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -72,7 +72,7 @@
 
             <input type="submit" class="btn btn-info mt-2" value="Insertar" id="id_btnAgregar">
 
-        </form>-->
+        </form>
 
 
         <h2>Filtrar categorias</h2>
@@ -109,7 +109,7 @@
                             <td scope="col">{$product->name}</td>
                             <td scope="col">{$product->description}</td>
                             <td scope="col">{$product->name_caegory}</td>
-                            <td scope="col"><!--<button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button>-->| <a href="detail/{$product->id_product}">Ver más</a></td>
+                            <td scope="col"><button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button> | <a href="detail/{$product->id_product}">Ver más</a></td>
                         </tr>
                     {/foreach}
                 </tbody>
