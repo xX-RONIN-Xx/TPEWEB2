@@ -12,7 +12,6 @@
     // rutas
     $r->addRoute("home", "GET", "ProductController", "Home");
     $r->addRoute("productos", "GET", "ProductController", "showAllProducts");
-    $r->addRoute("productos/admin", "GET", "ProductController", "showAdminProducts");
     $r->addRoute("filtrar/:ID", "GET", "ProductController", "showProductsByCategory");
     $r->addRoute("detail/:ID", "GET", "ProductController", "showDetailProduct");
     // acceso
@@ -38,9 +37,9 @@
     $r->addRoute("register","POST","UserController","register");
 
     //admin
-   /* $r->addRoute("borrarUser/:ID", "GET", "LoginController", "BorrarUser");
-    $r->addRoute("usuarios", "GET", "LoginController", "GetUsuarios");
-    $r->addRoute("administrador", "POST", "LoginController", "AgregarAdmin");*/
+   // $r->addRoute("borrarUser/:ID", "GET", "LoginController", "BorrarUser");
+    $r->addRoute("usuarios", "GET", "UserController", "getUsers");
+    //$r->addRoute("administrador", "POST", "LoginController", "AgregarAdmin");
 
 
     //Ruta por defecto.

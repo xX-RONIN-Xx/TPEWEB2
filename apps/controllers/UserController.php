@@ -26,33 +26,7 @@ class UserController{
         header("Location: ".LOGIN);
     }
 
-    /*function verifyUser(){
-        $user = $_POST["email"];
-        $pass = $_POST["password"];
-             var_dump($user, $pass);
-        if(isset($user)){
-            $userFromDB = $this->model->getUser($user);
-
-            if(isset($userFromDB) && $userFromDB){
-                // Existe el usuario
-
-                if (password_verify($pass, $userFromDB->password)){
-
-                    session_start();
-                    $_SESSION["EMAIL"] = $userFromDB->email;
-                    $_SESSION['LAST_ACTIVITY'] = time();
-
-                    header("Location: ".BASE_URL."productos");
-                }else{
-                    $this->view->showLogin("Contraseña incorrecta");
-                }
-
-            }else{
-                // No existe el user en la DB
-                $this->view->showLogin("El usuario no existe");
-            }
-        }
-    }*/
+    
 
     public function loginUser() {
         $email = $_POST['email'];
@@ -73,13 +47,8 @@ class UserController{
             session_start();
             $_SESSION["EMAIL"] = $user->email;
             $_SESSION["PASS"]= $user->password;
-            $_SESSION['ADMINISTRADOR']=$user->admin;
-                if ($_SESSION['ADMINISTRADOR'] == 1){
-                    header("Location: ".BASE_URL."productos/admin");
-
-                }else{
-                    header("Location: ".BASE_URL."productos");
-                }
+            $_SESSION["ADMINISTRADOR"]=$user->admin;
+            header("Location: ".BASE_URL."productos");
             
         }else {
             $this->view->showLogin("Credenciales inválidas");
@@ -92,7 +61,6 @@ class UserController{
         $password = $_POST['password'];
 
         $users = $this->model->getUsers();
-        var_dump($users, $email, $password);
         
         if ($email != '' && $password != ''){
             foreach($users as $user){
@@ -100,21 +68,21 @@ class UserController{
                     $emailYaExiste = false;
                 }else{
                     $emailYaExiste = true;
-                    var_dump($emailYaExiste);
-                    
+                    //var_dump($emailYaExiste);
                     $this->view->showRegistro('el email ingresado ya existe');
+                    die();
                 }
             }
             if($emailYaExiste == false){
                 $this->model->addUser($email,$password);
                 session_start();
-                $_SESSION["email"] = $user->email;
-                $_SESSION["password"]= $user->password;
-                $_SESSION['admin'] = 0;
+                $_SESSION["EMAIL"] = $user->email;
+                $_SESSION["PASSWORD"]= $user->password;
+                $_SESSION["ADMINISTRADOR"] = 0;
                 header("Location: " . BASE_URL);
             }
         }else{
-            header("Location: " . registrarse);
+            header("Location: " . "registrarse");
         }
     }
     public function showRegistro(){
@@ -122,4 +90,9 @@ class UserController{
     }
 
 
+    function getUsers(){
+        session_start();
+        $users=$this->model->getUsers();
+        $this->view->showUsers($users);
+    }
 }

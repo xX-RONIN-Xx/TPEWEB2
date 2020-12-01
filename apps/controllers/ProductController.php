@@ -6,11 +6,12 @@ class ProductController
 {
     private $model;
     private $view;
-
+   
     public function __construct()
     {
         $this->model = new ProductModel();
         $this->view = new ProductView();
+       
     }
 
     private function checkLoggin(){
@@ -22,6 +23,7 @@ class ProductController
 }
     function Home()
     {
+        session_start();
         $this->view->viewHome();
     }
 
@@ -62,14 +64,20 @@ class ProductController
 
     function showAllProducts()
     {
+        $accesoAdmin=0;
+        session_start();
+        if(isset($_SESSION)&& $_SESSION!=null){
+            $accesoAdmin=$_SESSION['ADMINISTRADOR'];
+        }
         $products = $this->model->getProducts();
         $categories = $this->model->getCategories();
-        $this->view->showProductsView($products, $categories);
+        $this->view->showProductsView($products, $categories,$accesoAdmin);
         
     }
 
     function showAdminProducts()
     {
+
         $products = $this->model->getProducts();
         $categories = $this->model->getCategories();
         $this->view->showProductsAdmin($products, $categories);
@@ -92,16 +100,21 @@ class ProductController
     {
         
         if (isset($params[':ID'])) {
+            $accesoAdmin=0;
+            session_start();
+            if(isset($_SESSION)&& $_SESSION!=null){
+             $accesoAdmin=$_SESSION['ADMINISTRADOR'];
+            }
             
             if($params[':ID']=='Todos'){
                 $products = $this->model->getProducts();
                 $categories = $this->model->getCategories();
-                $this->view->showProductsView($products, $categories);
+                $this->view->showProductsView($products, $categories,$accesoAdmin);
             }else{
                 $categoryID = $params[':ID'];
                 $products = $this->model->getProductsByCategory($categoryID);
                 $categories = $this->model->getCategories();
-                $this->view->showProductsView($products, $categories);
+                $this->view->showProductsView($products, $categories,$accesoAdmin);
             }
         }
     }

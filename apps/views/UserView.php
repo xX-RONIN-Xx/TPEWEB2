@@ -27,5 +27,9 @@ class UserView
         $this->smarty->display('templates/register.tpl');
     }
 
+    function showUsers($users=null){
+        $this->smarty->assign('users',$users);
+        $this->smarty->display('templates/users.tpl');
+    }
 
 }
