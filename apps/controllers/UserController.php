@@ -95,4 +95,22 @@ class UserController{
         $users=$this->model->getUsers();
         $this->view->showUsers($users);
     }
+
+    function CambiarPermisos(){
+
+            if(!empty($_POST['admin'])){
+            
+                $siAdmin=$_POST['admin'];
+                $id_usuario=$_POST['idUser'];
+            }else{
+                $siAdmin=0;
+                $id_usuario=$_POST['idUser'];
+            }
+            var_dump($siAdmin,$id_usuario);
+        
+            $this->model->editUser($siAdmin,$id_usuario);
+
+        header("Location: " . "usuarios");
+        
+    }
 }

@@ -31,4 +31,10 @@ class UserModel
             $query = $this->db->prepare("INSERT INTO users(email,password) VALUES(?,?)");
             $query->execute(array($email,$hash));
         }
+
+    function editUser($admin,$id)
+    {
+        $query = $this->db->prepare("UPDATE users SET admin=? WHERE id_user=?");
+        $query->execute(array($admin,$id));
+    }
 }
