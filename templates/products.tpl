@@ -1,10 +1,10 @@
 {include 'header.tpl'}
 <div class="container">
     {if $admin==1}
-        <div>
+        <div  class="lista">
             <a href="usuarios">Acceder a lista de usuarios</a>
         </div>
-        <h2>Categorias</h2>
+        <h2 class="opinion">Categorias</h2>
         <div>
             <div class="input-group mb-3">
                 <ul class="list-group" id="categ">
@@ -29,7 +29,7 @@
             </form>
     
     
-            <h2>PRODUCTOS</h2>
+            <h2 class="opinion">PRODUCTOS</h2>
     
             <form action="insert" method="POST" class="my-4">
                 <div class="row">
@@ -79,7 +79,7 @@
             </form>
     {/if}
 
-        <h2>Filtrar categorias</h2>
+        <h2 class="opinion">Filtrar categorias</h2>
         <div>
             <form action="productos" method="GET" class="my-4">
                 <div class="input-group mb-3">
@@ -115,7 +115,7 @@
                             <td scope="col">{$product->name_caegory}</td>
                             <td scope="col">
                             {if $admin==1}
-                            <button type="button" class="btn btn-outline-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button>{/if}| <a href="detail/{$product->id_product}">Ver más</a></td>
+                            <button type="button" class="btn btn-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button>{/if}| <a class="opinion" href="detail/{$product->id_product}">Ver más</a></td>
                         </tr>
                     {/foreach}
                 </tbody>
