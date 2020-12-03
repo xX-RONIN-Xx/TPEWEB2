@@ -8,7 +8,7 @@ $router = new Router();
 
 //$router->addRoute('comentarios/:ID', 'GET', 'ApiCommentController', 'showComment');
 $router->addRoute('comentarios/:ID', 'DELETE', 'ApiCommentController', 'deleteComment');
-$router->addRoute('detail/2/comentarios', 'POST', 'ApiCommentController', 'addComment');
+$router->addRoute('comentarios', 'POST', 'ApiCommentController', 'addComment');
 $router->addRoute('productos/:ID/comentarios', 'GET', 'ApiCommentController', 'showComments');
 
 

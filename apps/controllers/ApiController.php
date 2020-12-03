@@ -3,7 +3,7 @@
 require_once './apps/views/ApiView.php';
 
 abstract class ApiController {
-    protected $model; // lo instancia el hijo
+    protected $model;
     protected $view;
 
     private $data; 

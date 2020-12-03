@@ -23,8 +23,11 @@ class ApiCommentController {
         session_start();
   //      $idUser=$_SESSION["ID_USER"];
         //$idProduct=$_POST['product_id'];
-$idUser=2;
+        $idUser=2;
         $body = $this->getData();
+        var_dump($body);
+        die();
+        
         var_dump($body);
         die();
         $idProduct=$body->id_product;

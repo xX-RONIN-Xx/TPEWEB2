@@ -28,10 +28,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //getComments();
-
-
+//**************************************************** */
 document.querySelector("#btnComment").addEventListener('click',addComment);
-    async function addComment() {
+function addComment(){
+    let puntuacion=0;
+    document.querySelectorAll('input[name=estrellas]').forEach(element => {
+        if(element.checked==true){
+            puntuacion=element.value;
+        }else puntuacion=3;
+    });
+
+        const comment = {
+            'comment': document.querySelector('#comment').value,
+            'puntuacion': parseInt(puntuacion),
+            'id_user': 2,
+            'id_product': parseInt(document.querySelector('#prod_id').value)
+        }
+
+        console.log(comment)
+            fetch('api/comentarios', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(comment)
+        })        
+        .then(response => response.json()).then(console.log(comment))
+        .catch(error => console.log(error));
+
+}
+//***************************************************** */
+/*
+document.querySelector("#btnComment").addEventListener('click',addComment);
+     function addComment() {
         let puntuacion=0;
         document.querySelectorAll('input[name=estrellas]').forEach(element => {
             if(element.checked==true){
@@ -39,21 +66,24 @@ document.querySelector("#btnComment").addEventListener('click',addComment);
             }else puntuacion=3;
         });
         
-        // armo la tarea
+        // armo el json
         const comment = {
             "comment": document.querySelector('#comment').value,
             "puntuacion": puntuacion,
-            "id_user":"jose",
+            "id_user":"2",
             "id_product": document.querySelector('#prod_id').value,
         }
     
-        fetch('api/comentarios',{
-            method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(comment)
+        fetch('api/productos/' + id_product + '/comentarios',{
+            "method": 'POST',
+                "headers": { 'Content-Type': 'application/json' },
+                "body": JSON.stringify(comment)
         })
         .then(response => response.json())
-        .then(comment =>getComments(2))
+        .then(function (json) {
+            renderComments(json);
+        })
+       // .then(comment =>renderComments(comentarios))
         .catch(error=> console.log(error));
         /*try {
             const response = await fetch(baseURL, {
@@ -67,8 +97,8 @@ document.querySelector("#btnComment").addEventListener('click',addComment);
 
         } catch (e) {
             console.log(e);
-        }*/
+        }
 
-    }
+    }*/
 
 });

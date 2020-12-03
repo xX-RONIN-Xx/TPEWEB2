@@ -8,8 +8,9 @@
 
     <div class="container">
         <input type="hidden" name="product" id="id_product" value="{$product->id_product}">
+        
 
-        <form class="formulario" id="commentForm" method="POST" action="api/comentarios">
+        <form class="formulario" id="commentForm" >
             <h2 class="opinion">Opiniones sobre {$product->name}</h2>
 
             <div>
