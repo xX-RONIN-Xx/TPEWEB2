@@ -24,7 +24,7 @@ button a:hover{
 
 body{
     background-image: url(../img/images/tp/azul1.jpg);
-    color: whitesmoke !important;
+    color: whitesmoke;
 }
 
 #detail{
@@ -88,7 +88,10 @@ footer{
     margin-top: 30px;
     color: darkgoldenrod;
 }
-.div-comentarios{
+div.container h4{
+    color: whitesmoke;
+}
+/*.div-comentarios{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
@@ -129,7 +132,7 @@ footer{
     margin-top: 20px;
     overflow: scroll;
     height: inherit;
-}
+}*/
 
 .table{
     color: whitesmoke !important;

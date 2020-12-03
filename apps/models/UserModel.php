@@ -10,10 +10,10 @@ class UserModel
         $this->db = new PDO('mysql:host=localhost;' . 'dbname=db_products;charset=utf8', 'root', '');
     }
 
-    function getUser($user)
+    function getUser($email)
     {
         $query = $this->db->prepare("SELECT * FROM users WHERE email=?");
-        $query->execute(array($user));
+        $query->execute(array($email));
         return $query->fetch(PDO::FETCH_OBJ);
     }
 

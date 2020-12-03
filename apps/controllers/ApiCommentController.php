@@ -4,8 +4,6 @@ require_once './apps/views/ApiView.php';
 //require_once 'ApiController.php';
 
 class ApiCommentController {
-
-  
     private $model;
     private $view;
     private $data;
@@ -20,9 +18,29 @@ class ApiCommentController {
         return json_decode($this->data);
     }
 
+    function addComment(){
+        //aca verificar si esta logueado y los parametros
+        session_start();
+  //      $idUser=$_SESSION["ID_USER"];
+        //$idProduct=$_POST['product_id'];
+$idUser=2;
+        $body = $this->getData();
+        var_dump($body);
+        die();
+        $idProduct=$body->id_product;
+        $puntaje=$body->puntaje;
+        $comentarios=$body->comentarios;
+        /*echo "entro a la funcion";
+        $idProduct=2;
+        $puntaje=5;
+        $comentarios="harcodeado";*/
+        
+        $this->model-> addComment($idUser, $idProduct, $puntaje, $comentarios);
+
+    }
 
 
-    function showComment($params = null){
+   /* function showComment($params = null){
         $id = $params[':ID'];
         $comment = $this->model->getComment($id);
         if (!empty($comment)){
@@ -31,27 +49,21 @@ class ApiCommentController {
         else {
             $this->view->response("El comentario no existe", 404);
         }
-    }
+    }*/
 
-    function getAll(){
-       $comments= $this->model->getComments();
+   /* function getAll($params=null){
+       $comments= $this->model->getComments($params);
        var_dump($comments);
        die();
-    }
+    }*/
 
     function showComments($params = null) {
         $id_producto = $params[':ID'];
+        //verificar si el prod existe
         $comentarios = $this->model->getComments($id_producto);
-        if (!empty($comentarios)) {
+      
             $this->view->response($comentarios, 200);
         }
-        else {
-            $this->view->response("No se encontraron comentarios", 404);
-        }
-
-        var_dump($comments);
-        die();
-    }
 
 
 }

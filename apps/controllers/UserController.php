@@ -45,6 +45,7 @@ class UserController{
         if ($user && password_verify($password, $user->password)) {
             
             session_start();
+            $_SESSION["ID_USER"] = $user->id_user;
             $_SESSION["EMAIL"] = $user->email;
             $_SESSION["PASS"]= $user->password;
             $_SESSION["ADMINISTRADOR"]=$user->admin;
@@ -74,8 +75,10 @@ class UserController{
                 }
             }
             if($emailYaExiste == false){
-                $this->model->addUser($email,$password);
+                $this->model->addUser($email,$password); 
+                $user=$this->model->getUser($email);
                 session_start();
+                $_SESSION["ID_USER"]= $user->id_user;
                 $_SESSION["EMAIL"] = $user->email;
                 $_SESSION["PASSWORD"]= $user->password;
                 $_SESSION["ADMINISTRADOR"] = 0;
