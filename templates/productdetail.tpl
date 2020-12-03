@@ -10,7 +10,7 @@
         <input type="hidden" name="product" id="id_product" value="{$product->id_product}">
         
 
-        <form class="formulario" id="commentForm" >
+        <form class="formulario" id="commentForm" action="api/comentarios" method="POST">
             <h2 class="opinion">Opiniones sobre {$product->name}</h2>
 
             <div>
@@ -28,8 +28,10 @@
                     <input type="hidden" id="sesion" value={$smarty.session.email}>
                 {/foreach}
             {/if}
+            <input type="hidden" id="id_usuario" <!--value='{$smarty.session.idUser}'--> value='13' data-id={$smarty.session.id_user}> 
             {if (isset($smarty.session.email))}
                 <input type="hidden" id="admin" value='3'>
+                
             {/if}
             <div class="star">
                 <h2 class="opinion">Puntuar</h2>
@@ -62,7 +64,7 @@
             </label>
             <textarea name="comentarios" class="comment" id="comment" cols="60" rows="10"></textarea>
             <!--<input class="comment" type="submit" id="btn-send">-->
-            <input type="button" class="btn btn-info mt-2" value="Enviar" id="btnComment">
+            <input type="submit" class="btn btn-info mt-2" value="Enviar" id="btnComment">
 
         </form>
 

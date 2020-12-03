@@ -17,8 +17,8 @@ class CommentModel{
 
 
     function addComment($idUser, $idProduct, $puntaje, $comment){
-        $query = $this->db->prepare("INSERT INTO comments(id_user, id_product, puntaje, comment) VALUES(?,?,?,?)");
-        $query->execute(array($idUser, $idProduct, $puntaje, $comment));
+        $query = $this->db->prepare("INSERT INTO comments(comment, puntuacion, id_user, id_product) VALUES(?,?,?,?)");
+        $query->execute(array($comment,$puntaje,$idUser, $idProduct,  ));
         return $query->rowCount();
     }
 

@@ -20,26 +20,26 @@ class ApiCommentController {
 
     function addComment(){
         //aca verificar si esta logueado y los parametros
+       /* $datos=explode("&",$this->data);
+        var_dump($datos);
+        die();*/
         session_start();
-  //      $idUser=$_SESSION["ID_USER"];
+        $idUser=$_SESSION["ID_USER"];
+
         //$idProduct=$_POST['product_id'];
-        $idUser=2;
-        $body = $this->getData();
-        var_dump($body);
-        die();
+        $body = $this->getData();   
+       /*var_dump($body,$this->data);
+        die();*/
         
-        var_dump($body);
-        die();
-        $idProduct=$body->id_product;
+       /* $idProduct=$body->id_product;
         $puntaje=$body->puntaje;
-        $comentarios=$body->comentarios;
-        /*echo "entro a la funcion";
+        $comentarios=$body->comentarios;*/
+        echo "entro a la funcion";
         $idProduct=2;
         $puntaje=5;
-        $comentarios="harcodeado";*/
-        
-        $this->model-> addComment($idUser, $idProduct, $puntaje, $comentarios);
-
+        $comentarios="harcodeado";
+       
+       $res=$this->model-> addComment($idUser, $idProduct, $puntaje, $comentarios);
     }
 
 
