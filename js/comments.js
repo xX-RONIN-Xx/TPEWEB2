@@ -95,6 +95,7 @@ async function addComment(){
             body: JSON.stringify(comment)
         })
         .then(response =>(response.json()))
+        
         .then(console.log("ok"))
         .catch(error => console.log(error));
 

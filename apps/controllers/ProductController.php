@@ -87,7 +87,7 @@ class ProductController
                 $accesoAdmin = $_SESSION['ADMINISTRADOR'];
             }
             $products = $this->model->getProducts();
-            $categories = $this->model->getCategories();
+            $categories = $this->modelCat->getCategories();
             $this->view->showProductsView($products, $categories, $accesoAdmin);
         }
 
@@ -126,12 +126,12 @@ class ProductController
 
             if ($params[':ID'] == 'Todos') {
                 $products = $this->model->getProducts();
-                $categories = $this->model->getCategories();
+                $categories = $this->modelCat->getCategories();
                 $this->view->showProductsView($products, $categories, $accesoAdmin);
             } else {
                 $categoryID = $params[':ID'];
                 $products = $this->model->getProductsByCategory($categoryID);
-                $categories = $this->model->getCategories();
+                $categories = $this->modelCat->getCategories();
                 $this->view->showProductsView($products, $categories, $accesoAdmin);
 
             }
@@ -165,7 +165,7 @@ class ProductController
     {
 
         $category = $_POST['name_caegory'];
-        $this->model->addCategory($category);
+        $this->modelCat->addCategory($category);
         header("Location: " . BASE_URL . "productos");
     }
 
