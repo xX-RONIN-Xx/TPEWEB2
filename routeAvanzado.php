@@ -14,6 +14,7 @@
     $r->addRoute("productos", "GET", "ProductController", "showAllProducts");
     $r->addRoute("filtrar/:ID", "GET", "ProductController", "showProductsByCategory");
     $r->addRoute("detail/:ID", "GET", "ProductController", "showDetailProduct");
+    
     // acceso
     $r->addRoute("login", "GET", "UserController", "Login");
     $r->addRoute("logout", "GET", "UserController", "Logout");

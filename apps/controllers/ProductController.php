@@ -1,16 +1,18 @@
 <?php
 require_once './apps/models/ProductModel.php';
 require_once './apps/views/ProductView.php';
+require_once './apps/models/CategoryModel.php';
 
 class ProductController
 {
     private $model;
     private $view;
-
+    private $modelCat;
     public function __construct()
     {
         $this->model = new ProductModel();
         $this->view = new ProductView();
+        $this->modelCat=new CategoryModel();
     }
 
     /*private function checkLoggin()
@@ -41,26 +43,40 @@ class ProductController
         //$this->checkLogginAdmin();
         $id = $params[':ID'];
         $product = $this->model->getProduct($id);
-        $categorias = $this->model->getCategories();
-        $this->view->showEditProduct($categorias, $product);
+
+        $categorias = $this->modelCat->getCategories();
+        $this->view->showEditProduct($categorias,$product);
+
     }
 
 
 
     ////////////////////////////////////////////////
 
+
     function UpdateProduct($params = null)
     {
         //$this->checkLogginAdmin();
+
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
         $category = $_POST['id_category'];
         $id = $_POST['id'];
+        var_dump($name);
+        var_dump($description);
+        var_dump($price);
+        var_dump($stock);
+        var_dump($category);
+        var_dump($id);
+        //die();
+
         $this->model->EditProduct($name, $description, $price, $stock, $category, $id);
 
+
         header("Location: " . BASE_URL . "productos");
+
     }
 
         function showAllProducts()
@@ -79,13 +95,15 @@ class ProductController
     {
 
         $products = $this->model->getProducts();
-        $categories = $this->model->getCategories();
-        $this->view->showProductsAdmin($products, $categories);
+
+        $categories = $this->modelCat->getCategories();
+        $this->view->showProductsView($products, $categories);
+        
+
     }
 */
     function showDetailProduct($params = null)
     {
-
         if (isset($params[':ID'])) {
             session_start();
             $id_product = $params[':ID'];
@@ -99,6 +117,7 @@ class ProductController
     {
 
         if (isset($params[':ID'])) {
+
             $accesoAdmin = 0;
             session_start();
             if (isset($_SESSION) && $_SESSION != null) {
@@ -114,6 +133,7 @@ class ProductController
                 $products = $this->model->getProductsByCategory($categoryID);
                 $categories = $this->model->getCategories();
                 $this->view->showProductsView($products, $categories, $accesoAdmin);
+
             }
         }
     }
@@ -152,7 +172,7 @@ class ProductController
     function DeleteCategory($params = null)
     {
         $id = $params[':ID'];
-        $this->model->removeCategory($id);
+        $this->modelCat->removeCategory($id);
         header("Location: " . BASE_URL . "productos");
     }
 
@@ -160,22 +180,26 @@ class ProductController
     {
         $id = $_POST['id_cat'];
         $name = $_POST['name_cat'];
-        $categoriesSaved = $this->model->getAllCategories();
-        foreach (($categoriesSaved) as $cat) {
 
-            if (strtoupper($cat) == strtoupper($name)) {
-                $this->view->showError("la categoria ya existe");
+        $categoriesSaved=$this->modelCat->getAllCategories();
+        foreach (($categoriesSaved) as $cat ) {
+        
+            if(strtoupper($cat)==strtoupper($name)){
+                $this->view->showError("la categoria ya existe"); 
                 return;
             }
         }
-        $this->model->editCategorybyId($name, $id);
-        header("Location: " . BASE_URL . "productos");
+        $this->modelCat->editCategorybyId($name,$id);
+        header("Location: " . BASE_URL . "productos");  
+
     }
 
     function editCategory($params = null)
     {
-        $id = $params[':ID'];
-        $nameCategoryEdit = $this->model->getCategoryAll($id);
+
+        $id=$params[':ID'];
+        $nameCategoryEdit=$this->modelCat->getCategoryAll($id);
+
         $this->view->showUpdateCategory($nameCategoryEdit);
     }
 }
