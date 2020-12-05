@@ -21,6 +21,9 @@
             {/if}
 
             <button type="submit" class="btn btn-primary">Login</button>
+            
+            <button><a href = "registrarse">Registrarse</a></button>
+        
         </form>
     </div>
 

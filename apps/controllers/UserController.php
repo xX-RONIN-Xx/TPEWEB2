@@ -1,6 +1,7 @@
 <?php
 
 require_once "./apps/views/UserView.php";
+require_once "./apps/views/ProductView.php";
 require_once "./apps/models/UserModel.php";
 
 class UserController{
@@ -10,6 +11,7 @@ class UserController{
 
     function __construct(){
         $this->view = new UserView();
+        $this->viewProduct =new ProductView();
         $this->model = new UserModel();
     }
 
@@ -23,32 +25,98 @@ class UserController{
         header("Location: ".LOGIN);
     }
 
-    function verifyUser(){
-        $user = $_POST["email"];
-        $pass = $_POST["password"];
-             var_dump($user);
-        if(isset($user)){
-            $userFromDB = $this->model->getUser($user);
+    
 
-            if(isset($userFromDB) && $userFromDB){
-                // Existe el usuario
+    public function loginUser() {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-                if (password_verify($pass, $userFromDB->password)){
-
-                    session_start();
-                    $_SESSION["EMAIL"] = $userFromDB->email;
-                    $_SESSION['LAST_ACTIVITY'] = time();
-
-                    header("Location: ".BASE_URL."productos");
-                }else{
-                    $this->view->showLogin("Contraseña incorrecta");
-                }
-
-            }else{
-                // No existe el user en la DB
-                $this->view->showLogin("El usuario no existe");
-            }
+        // verifico campos obligatorios
+        if (empty($email) || empty($password)) {
+            $this->Login("Faltan datos obligatorios");
+            die();
         }
+
+        // obtengo el usuario
+        $user = $this->model->getUser($email);
+
+        // si el usuario existe, y las contraseñas coinciden
+        if ($user && password_verify($password, $user->password)) {
+            
+            session_start();
+            $_SESSION["ID_USER"] = $user->id_user;
+            $_SESSION["EMAIL"] = $user->email;
+            $_SESSION["PASS"]= $user->password;
+            $_SESSION["ADMINISTRADOR"]=$user->admin;
+            header("Location: ".BASE_URL."productos");
+            
+        }else {
+            $this->view->showLogin("Credenciales inválidas");
+        }
+
     }
 
+    function register(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $users = $this->model->getUsers();
+        
+        if ($email != '' && $password != ''){
+            foreach($users as $user){
+                if($email != $user->email){
+                    $emailYaExiste = false;
+                }else{
+                    $emailYaExiste = true;
+                    $this->view->showRegistro('el email ingresado ya existe');
+                    die();
+                }
+            }
+            if($emailYaExiste == false){
+                $this->model->addUser($email,$password); 
+                $user=$this->model->getUser($email);
+                session_start();
+                $_SESSION["ID_USER"]= $user->id_user;
+                $_SESSION["EMAIL"] = $user->email;
+                $_SESSION["PASSWORD"]= $user->password;
+                $_SESSION["ADMINISTRADOR"] = 0;
+                header("Location: " . BASE_URL);
+            }
+        }else{
+            header("Location: " . "registrarse");
+        }
+    }
+    public function showRegistro(){
+        $this->view->showRegistro();
+    }
+
+
+    function getUsers(){
+        session_start();
+        $users=$this->model->getUsers();
+        $this->view->showUsers($users);
+    }
+
+    function CambiarPermisos(){
+
+            if(!empty($_POST['admin'])){
+                $siAdmin=$_POST['admin'];
+                $id_usuario=$_POST['idUser'];
+            }else{
+                $siAdmin=0;
+                $id_usuario=$_POST['idUser'];
+            }
+        
+            $this->model->editUser($siAdmin,$id_usuario);
+
+        header("Location: " . "usuarios");
+        
+    }
+    function deleteUser($params=null){
+        if(isset($params[":ID"])){
+            $id=$params[':ID'];
+            $this->model->deleteUser($id);
+            header("Location: " . BASE_URL. "usuarios");
+        }
+    }
 }

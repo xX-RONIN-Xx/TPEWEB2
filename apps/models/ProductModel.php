@@ -37,14 +37,14 @@ class Productmodel
         return $products;
     }
 
-    function getProductsByCategories($category)
+   /* function getProductsByCategories($category)
     {
 
         $query = $this->db->prepare('SELECT * FROM products WHERE id_category = ?');
         $query->execute(array($category));
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
-    }
+    }*/
 
     function addProduct($name, $description, $precio, $stock, $categoria)
     {
@@ -67,9 +67,11 @@ class Productmodel
 
     function EditProduct($name, $description, $price, $stock, $id_category,$id_product)
     {
+
         $query = $this->db->prepare('UPDATE products SET name=?, description=?, price=?, stock=?, id_category=? WHERE id_product=?');
         //$query = $this->db->prepare("UPDATE `products` SET `name`=?, `description`=?, `price`=?, `stock`=?, `id_category`=? WHERE `id_product`=?");
         $query->execute(array($name, $description, $price, $stock, $id_category, $id_product));
+
     }
 
 }

@@ -15,29 +15,49 @@ class ProductController
         $this->modelCat=new CategoryModel();
     }
 
+    /*private function checkLoggin()
+    {
+        session_start();
+        if (!isset($_SESSION["user"])) {
+            header("Location:" . LOGIN);
+            die();
+        }
+    }
+    private function checkLogginAdmin()
+    {
+        session_start();
+        if (!isset($_SESSION["admin"])) {
+            header("Location:" . LOGIN);
+            die();
+        }
+    }*/
+
     function Home()
     {
-        $this->view->viewHome();
+        session_start();
+            $this->view->viewHome();
     }
-
     //////Productos
-    function EditProduct($params=null){
-        $id=$params[':ID'];
+    function EditProduct($params = null)
+    {
+        //$this->checkLogginAdmin();
+        $id = $params[':ID'];
         $product = $this->model->getProduct($id);
+
         $categorias = $this->modelCat->getCategories();
         $this->view->showEditProduct($categorias,$product);
+
     }
 
-        //$nameCategoryEdit=$this->model->getCategoryAll($id);
-       // $products = $this->model->getProducts();
-        //$categories = $this->model->getCategories();
-        //$this->view->showUpdateCategory($products,$categories,$nameCategoryEdit);
-    
+
 
     ////////////////////////////////////////////////
 
-    function UpdateProduct(){
-        //header ("Location: " . BASE_URL . "productos");
+
+    function UpdateProduct($params = null)
+    {
+        //$this->checkLogginAdmin();
+
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
@@ -53,21 +73,39 @@ class ProductController
         //die();
 
         $this->model->EditProduct($name, $description, $price, $stock, $category, $id);
-        header ("Location: " . BASE_URL . "productos");
+
+
+        header("Location: " . BASE_URL . "productos");
+
     }
 
-    function showAllProducts()
+        function showAllProducts()
+        {
+            session_start();
+            $accesoAdmin = 0;
+            if (isset($_SESSION) && $_SESSION != null) {
+                $accesoAdmin = $_SESSION['ADMINISTRADOR'];
+            }
+            $products = $this->model->getProducts();
+            $categories = $this->model->getCategories();
+            $this->view->showProductsView($products, $categories, $accesoAdmin);
+        }
+
+    /*function showAdminProducts()
     {
+
         $products = $this->model->getProducts();
+
         $categories = $this->modelCat->getCategories();
         $this->view->showProductsView($products, $categories);
         
-    }
 
+    }
+*/
     function showDetailProduct($params = null)
     {
         if (isset($params[':ID'])) {
-
+            session_start();
             $id_product = $params[':ID'];
             $product = $this->model->getProduct($id_product);
             $this->view->showProduct($product);
@@ -77,16 +115,25 @@ class ProductController
 
     function showProductsByCategory($params = null)
     {
-        
+
         if (isset($params[':ID'])) {
-            
-            if($params[':ID']=='Todos'){
-                header("Location: " . BASE_URL . "productos");
-            }else{
+
+            $accesoAdmin = 0;
+            session_start();
+            if (isset($_SESSION) && $_SESSION != null) {
+                $accesoAdmin = $_SESSION['ADMINISTRADOR'];
+            }
+
+            if ($params[':ID'] == 'Todos') {
+                $products = $this->model->getProducts();
+                $categories = $this->model->getCategories();
+                $this->view->showProductsView($products, $categories, $accesoAdmin);
+            } else {
                 $categoryID = $params[':ID'];
                 $products = $this->model->getProductsByCategory($categoryID);
-                $categories = $this->modelCat->getCategories();
-                $this->view->showProductsView($products, $categories);
+                $categories = $this->model->getCategories();
+                $this->view->showProductsView($products, $categories, $accesoAdmin);
+
             }
         }
     }
@@ -109,7 +156,7 @@ class ProductController
         header("Location: " . BASE_URL . "productos");
     }
 
-   
+
 
     //Categorías
     //////////////////////////
@@ -133,6 +180,7 @@ class ProductController
     {
         $id = $_POST['id_cat'];
         $name = $_POST['name_cat'];
+
         $categoriesSaved=$this->modelCat->getAllCategories();
         foreach (($categoriesSaved) as $cat ) {
         
@@ -143,13 +191,15 @@ class ProductController
         }
         $this->modelCat->editCategorybyId($name,$id);
         header("Location: " . BASE_URL . "productos");  
+
     }
 
-    function editCategory($params=null)
+    function editCategory($params = null)
     {
+
         $id=$params[':ID'];
         $nameCategoryEdit=$this->modelCat->getCategoryAll($id);
+
         $this->view->showUpdateCategory($nameCategoryEdit);
     }
-    
 }

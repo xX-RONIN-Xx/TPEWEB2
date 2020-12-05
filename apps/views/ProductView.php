@@ -19,9 +19,10 @@ class ProductView{
         $this->smarty->display('templates/productdetail.tpl');
     }
 
-    function showProductsView($products, $categories){
+    function showProductsView($products, $categories,$accesoAdmin){
         $this->smarty->assign('products', $products);
         $this->smarty->assign('categorias', $categories);
+        $this->smarty->assign('admin', $accesoAdmin);
         $this->smarty->display('templates/products.tpl');
     }
 
@@ -38,11 +39,11 @@ class ProductView{
 
     }
 
-    function showUpdateProduct($products, $categories){
+    function showProductsAdmin($products, $categories){
 
         $this->smarty->assign('products', $products);
         $this->smarty->assign('categorias', $categories);
-        $this->smarty->display('templates/products.tpl'); 
+        $this->smarty->display('templates/productsAdmin.tpl'); 
 
     }
 
