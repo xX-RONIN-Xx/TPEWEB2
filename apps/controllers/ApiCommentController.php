@@ -19,14 +19,14 @@ class ApiCommentController {
 
     function addComment(){
         //aca verificar si esta logueado y los parametros
-       $datos=explode("&",$this->data);
-        //var_dump($this->data);
+       //$datos=explode("&",$this->data);
+        var_dump($this->data);
         //var_dump(json_encode($this->data));
-        var_dump($datos);
+       // var_dump($datos);
         session_start();
-        var_dump($_SESSION);
-        $idUser=$_SESSION['ID_USER'];
-        var_dump($idUser);
+        //var_dump($_SESSION);
+       // $idUser=$_SESSION['ID_USER'];
+       // var_dump($idUser);
         die();
         //ession_start();
         $idUser=$_SESSION["ID_USER"];
