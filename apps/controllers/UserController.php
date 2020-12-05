@@ -7,7 +7,6 @@ require_once "./apps/models/UserModel.php";
 class UserController{
 
     private $view;
-    private $viewProduct;
     private $model;
 
     function __construct(){
@@ -69,7 +68,6 @@ class UserController{
                     $emailYaExiste = false;
                 }else{
                     $emailYaExiste = true;
-                    //var_dump($emailYaExiste);
                     $this->view->showRegistro('el email ingresado ya existe');
                     die();
                 }
@@ -102,18 +100,23 @@ class UserController{
     function CambiarPermisos(){
 
             if(!empty($_POST['admin'])){
-            
                 $siAdmin=$_POST['admin'];
                 $id_usuario=$_POST['idUser'];
             }else{
                 $siAdmin=0;
                 $id_usuario=$_POST['idUser'];
             }
-            var_dump($siAdmin,$id_usuario);
         
             $this->model->editUser($siAdmin,$id_usuario);
 
         header("Location: " . "usuarios");
         
+    }
+    function deleteUser($params=null){
+        if(isset($params[":ID"])){
+            $id=$params[':ID'];
+            $this->model->deleteUser($id);
+            header("Location: " . BASE_URL. "usuarios");
+        }
     }
 }

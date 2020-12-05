@@ -37,7 +37,7 @@
     $r->addRoute("register","POST","UserController","register");
 
     //admin
-   // $r->addRoute("borrarUser/:ID", "GET", "LoginController", "BorrarUser");
+    $r->addRoute("deleteUser/:ID", "GET", "UserController", "deleteUser");
     $r->addRoute("usuarios", "GET", "UserController", "getUsers");
     $r->addRoute("adminUsers", "POST", "UserController", "CambiarPermisos");
     //$r->addRoute("administrador", "POST", "LoginController", "AgregarAdmin");

@@ -1,4 +1,5 @@
 {include 'header.tpl'}
+<h1>{$smarty.session.EMAIL}</h1>
 <div class="container" id="detail">
     <h1 class="color"> Producto | {$product->name}</h1>
     <h4> Descripción | {$product->description}</h4>
@@ -19,20 +20,9 @@
             </div>
 
             <input type="hidden" name="product_id" id='prod_id' value='{$product->id_product}' readonly>
-            {if (isset($smarty.session.email))}
-                {foreach from=users item=user}
-                    <label for="nickname">Usuario</label>
-                    <input type="text" name="nickname" id='nickname' value='{$user->email}' readonly>
-                    <input type="hidden" name="usuario_id" id='usuario_id' value='{$user->id_user}'>
-                    <input type="hidden" id="admin" value='{$user->admin}'>
-                    <input type="hidden" id="sesion" value={$smarty.session.email}>
-                {/foreach}
-            {/if}
-            <input type="hidden" id="id_usuario" <!--value='{$smarty.session.idUser}'--> value='13' data-id={$smarty.session.id_user}> 
-            {if (isset($smarty.session.email))}
-                <input type="hidden" id="admin" value='3'>
-                
-            {/if}
+          
+            <input type="hidden" id="id_usuario" value='{$smarty.session.ID_USER}' <!--data-id={$smarty.session.ID_USER}-->> 
+            
             <div class="star">
                 <h2 class="opinion">Puntuar</h2>
                 <p class="clasificacion">

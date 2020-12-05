@@ -37,14 +37,14 @@ class Productmodel
         return $products;
     }
 
-    function getProductsByCategories($category)
+   /* function getProductsByCategories($category)
     {
 
         $query = $this->db->prepare('SELECT * FROM products WHERE id_category = ?');
         $query->execute(array($category));
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
-    }
+    }*/
 
     function addProduct($name, $description, $precio, $stock, $categoria)
     {

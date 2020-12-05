@@ -29,8 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //getComments();
     //**************************************************** */
+
+
+    
+    //addComments();
+    //**************************************************** */
     document.querySelector("#btnComment").addEventListener('click', addComment);
-    async function addComment() {
+
+
+    /*async function addComment() {
         let puntuacion = 0;
         document.querySelectorAll('input[name=estrellas]').forEach(element => {
             if (element.checked == true) {
@@ -38,10 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else puntuacion = 3;
         });
         //  try {
+            let idd=document.querySelector('#id_usuario').dataset.id;
+            console.log(idd)
         let commenta = {
             "comment": document.querySelector('#comment').value,
             "puntuacion": parseInt(puntuacion),
-            "id_user": document.querySelector('#id_usuario').dataset.id,
+            "id_user": document.querySelector('#id_usuario').value,
             "id_product": parseInt(document.querySelector('#prod_id').value)
         };
         console.log(commenta);
@@ -63,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         //     console.log("error.")
         // }
     }
-});
-/*async function addComment(){
+});*/
+async function addComment(){
     let puntuacion=0;
     document.querySelectorAll('input[name=estrellas]').forEach(element => {
         if(element.checked==true){
@@ -73,23 +82,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
         let comment = {
-            'comment': "hola",//document.querySelector('#comment').value,
-            'puntuacion': 3,//parseInt(puntuacion),
-            'id_user': 2,
-            'id_product': 2,//parseInt(document.querySelector('#prod_id').value)
+            'comment': document.querySelector('#comment').value,
+            'puntuacion': parseInt(puntuacion),
+            'id_user': document.querySelector('#id_usuario').value,
+            'id_product': parseInt(document.querySelector('#prod_id').value)
         }
 
         console.log(comment)
-            fetch('http://localhost/web2/Tp_Especial/TPEWEB2/api/detail/2/comentarios', {
+            fetch('api/comentarios', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(comment)
         })
-        .then(response =>console.log(response.json()))
-        .then(comentarios => renderComments(comentarios))
+        .then(response =>(response.json()))
+        .then(console.log("ok"))
         .catch(error => console.log(error));
 
-}*/
+}
+})
 //***************************************************** */
 /*
 document.querySelector("#btnComment").addEventListener('click',addComment);
@@ -136,4 +146,3 @@ document.querySelector("#btnComment").addEventListener('click',addComment);
 
     }*/
 
-//})

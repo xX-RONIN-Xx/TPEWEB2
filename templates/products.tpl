@@ -1,7 +1,7 @@
 {include 'header.tpl'}
 <div class="container">
-    {if $admin==1}
-        <div  class="lista">
+        {if $admin==1}
+        <div class="lista">
             <a href="usuarios">Acceder a lista de usuarios</a>
         </div>
         <h2 class="opinion">Categorias</h2>
@@ -77,7 +77,7 @@
                 <input type="submit" class="btn btn-info mt-2" value="Insertar" id="id_btnAgregar">
     
             </form>
-    {/if}
+        {/if}
 
         <h2 class="opinion">Filtrar categorias</h2>
         <div>
@@ -114,8 +114,8 @@
                             <td scope="col">{$product->description}</td>
                             <td scope="col">{$product->name_caegory}</td>
                             <td scope="col">
-                            {if $admin==1}
-                            <button type="button" class="btn btn-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button>{/if}| <a class="opinion" href="detail/{$product->id_product}">Ver más</a></td>
+                                {if $admin==1}
+                                <button type="button" class="btn btn-danger"><a href="delete/{$product->id_product}">Borrar</a></button><button type="button" class="btn btn-warning"><a href="editar/{$product->id_product}">Editar</a></button>{/if}| <a class="opinion" href="detail/{$product->id_product}">Ver más</a></td>
                         </tr>
                     {/foreach}
                 </tbody>

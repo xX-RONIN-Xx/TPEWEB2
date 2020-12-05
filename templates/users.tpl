@@ -16,7 +16,7 @@
                             {foreach from=$users item=user}
                                 <tr class="text-center table-info">
                                     <td scope="col">{$user->email}</td>
-                                    <td scope="col"><button class="btn btn-danger"><a href="borrarUser/{$user->id_user}">Borrar</a></button></td>
+                                    <td scope="col"><button class="btn btn-danger"><a href="deleteUser/{$user->id_user}">Borrar</a></button></td>
                                     <td scope="col">
                                         <form action="adminUsers" method="post">
                                             <select name="admin" class="SEL" id="{$user->id_user}">

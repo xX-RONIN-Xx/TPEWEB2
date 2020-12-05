@@ -1,7 +1,6 @@
 <?php
 require_once './apps/models/CommentModel.php';
 require_once './apps/views/ApiView.php';
-//require_once 'ApiController.php';
 
 class ApiCommentController {
     private $model;
@@ -11,7 +10,7 @@ class ApiCommentController {
     public function __construct() {
         $this->model = new CommentModel();
         $this->view = new APIView();
-        $this->data = file_get_contents("php://input");
+        $this->data =  file_get_contents("php://input"); 
     }
 
     function getData(){
@@ -20,14 +19,20 @@ class ApiCommentController {
 
     function addComment(){
         //aca verificar si esta logueado y los parametros
-       /* $datos=explode("&",$this->data);
+       $datos=explode("&",$this->data);
+        //var_dump($this->data);
+        //var_dump(json_encode($this->data));
         var_dump($datos);
-        die();*/
         session_start();
+        var_dump($_SESSION);
+        $idUser=$_SESSION['ID_USER'];
+        var_dump($idUser);
+        die();
+        //ession_start();
         $idUser=$_SESSION["ID_USER"];
 
         //$idProduct=$_POST['product_id'];
-        $body = $this->getData();   
+        $body = json_decode($this->data);   
        /*var_dump($body,$this->data);
         die();*/
         
@@ -35,9 +40,9 @@ class ApiCommentController {
         $puntaje=$body->puntaje;
         $comentarios=$body->comentarios;*/
         echo "entro a la funcion";
-        $idProduct=2;
+        $idProduct=$body->product_id;
         $puntaje=5;
-        $comentarios="harcodeado";
+        $comentarios=$body->comentarios;
        
        $res=$this->model-> addComment($idUser, $idProduct, $puntaje, $comentarios);
     }
@@ -61,6 +66,8 @@ class ApiCommentController {
     }*/
 
     function showComments($params = null) {
+        print_r($_SESSION);
+        
         $id_producto = $params[':ID'];
         //verificar si el prod existe
         $comentarios = $this->model->getComments($id_producto);

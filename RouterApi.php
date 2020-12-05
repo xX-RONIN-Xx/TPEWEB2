@@ -6,6 +6,7 @@ $router = new Router();
 
 // RUTEO API REST
 
+
 //$router->addRoute('comentarios/:ID', 'GET', 'ApiCommentController', 'showComment');
 $router->addRoute('comentarios/:ID', 'DELETE', 'ApiCommentController', 'deleteComment');
 $router->addRoute('comentarios', 'POST', 'ApiCommentController', 'addComment');
