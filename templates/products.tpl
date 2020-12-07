@@ -1,6 +1,6 @@
 {include 'header.tpl'}
 <div class="container">
-        {if $admin==1}
+    {if $admin==1}
         <div class="lista">
             <a href="usuarios">Acceder a lista de usuarios</a>
         </div>

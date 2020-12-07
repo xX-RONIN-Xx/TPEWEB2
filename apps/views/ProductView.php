@@ -14,8 +14,9 @@ class ProductView{
 
 //Productos////////
 
-    function showProduct($product){
+    function showProduct($product,$user){
         $this->smarty->assign('product', $product);
+        $this->smarty->assign('user',$user);
         $this->smarty->display('templates/productdetail.tpl');
     }
 

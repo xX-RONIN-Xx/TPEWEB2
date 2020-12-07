@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!--<script src="js/comentarios.js"></script>-->
     <script src="js/comments.js"></script>
-    <title>{$Products}</title>
+    <title></title>
 </head>
 
 <body>

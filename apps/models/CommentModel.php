@@ -7,7 +7,7 @@ class CommentModel{
         $this->db = new PDO('mysql:host=localhost;'.'dbname=db_products;charset=utf8', 'root', '');
     }
 
-   function getComments($idProduct){
+   function getCommentsByProduct($idProduct){
         $query=$this->db->prepare('SELECT comments.*, users.email FROM comments INNER JOIN users
             ON users.id_user= comments.id_user WHERE id_product=?');
         $query->execute(array($idProduct));
