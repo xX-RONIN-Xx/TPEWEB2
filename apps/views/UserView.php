@@ -19,7 +19,7 @@ class UserView
         $this->smarty->display('templates/login.tpl');
     }
 
-    function showRegistro($error = null)
+    function showReg($error = null)
     {
         $this->smarty->assign('error', $error);
         $this->smarty->display('templates/register.tpl');

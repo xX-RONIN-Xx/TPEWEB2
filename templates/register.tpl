@@ -20,7 +20,7 @@
                 </div>
             {/if}
             
-            <button type="submit">Registrarse</button>
+            <button class="btn btn-primary" type="submit">Sign Up</button>
         
         </form>
     </div>

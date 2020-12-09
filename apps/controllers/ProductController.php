@@ -25,15 +25,17 @@ class ProductController
     //////Productos
     function EditProduct($params = null)
     {
-        if ($this->controller->isLogged() && $_SESSION['ADMINISTRADOR'] == 1) {
+        if (isset($params[':ID'])) {
+            if ($this->controller->isLogged() && ($_SESSION['ADMINISTRADOR'] == 1)) {
 
-            $id = $params[':ID'];
-            $product = $this->model->getProduct($id);
+                $id = $params[':ID'];
+                $product = $this->model->getProduct($id);
 
-            $categorias = $this->modelCat->getCategories();
-            $this->view->showEditProduct($categorias, $product);
-        } else {
-            header("Location: " . BASE_URL . "productos");
+                $categorias = $this->modelCat->getCategories();
+                $this->view->showEditProduct($categorias, $product);
+            } else {
+                header("Location: " . BASE_URL . "productos");
+            }
         }
     }
 
@@ -64,6 +66,7 @@ class ProductController
             $accesoAdmin = $_SESSION['ADMINISTRADOR'];
         }
         $products = $this->model->getProducts();
+        $allProducts=$this->paginar($products);
         $categories = $this->modelCat->getCategories();
         $this->view->showProductsView($products, $categories, $accesoAdmin);
     }
@@ -76,16 +79,17 @@ class ProductController
 
         if (isset($params[':ID'])) {
             session_start();
-            $user = $_SESSION['EMAIL'];
-            if ($user) {
+            if (isset($_SESSION['EMAIL']) && isset($_SESSION['ADMINISTRADOR'])) {
                 $user = $_SESSION['EMAIL'];
+                $admin = $_SESSION['ADMINISTRADOR'];
             } else {
-                $user = 0;
+                $user = "0";
+                $admin = 2;
             }
 
             $id_product = $params[':ID'];
             $product = $this->model->getProduct($id_product);
-            $this->view->showProduct($product, $user);
+            $this->view->showProduct($product, $user, $admin);
         }
     }
 
@@ -108,6 +112,7 @@ class ProductController
             } else {
                 $categoryID = $params[':ID'];
                 $products = $this->model->getProductsByCategory($categoryID);
+                
                 $categories = $this->modelCat->getCategories();
                 $this->view->showProductsView($products, $categories, $accesoAdmin);
             }
@@ -205,5 +210,11 @@ class ProductController
                 header("Location: " . BASE_URL . "login");
             }
         }
+    }
+    function paginar($params=null){
+        $productsByPage=4;
+        $productsCount=$this->model->getProductsCount();
+        $pages=ceil($productsCount/$productsByPage);
+
     }
 }

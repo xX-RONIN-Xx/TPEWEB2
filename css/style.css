@@ -91,18 +91,22 @@ footer{
 div.container h4{
     color: whitesmoke;
 }
-/*.div-comentarios{
+.div-comentarios{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-    width: 100%;
-    align-items: center;
-   
+    width: 100%;  
 }
 
-.caja-comentario{
+.caja{
     width: 100%;
-    font-style: italic;
+    text-align: start;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: lightgray;
+    border: black;
+    border-radius: 10px;
+    color: gray;
 }
 
 .posteo{
@@ -132,7 +136,7 @@ div.container h4{
     margin-top: 20px;
     overflow: scroll;
     height: inherit;
-}*/
+}
 
 .table{
     color: whitesmoke !important;

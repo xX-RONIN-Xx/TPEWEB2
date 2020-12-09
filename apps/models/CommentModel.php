@@ -16,9 +16,9 @@ class CommentModel{
     }
 
 
-    function addComment($idUser, $idProduct, $puntaje, $comment){
+    function addCommentario($comment,$puntuacion,$id_user, $id_product){
         $query = $this->db->prepare("INSERT INTO comments(comment, puntuacion, id_user, id_product) VALUES(?,?,?,?)");
-        $query->execute(array($comment,$puntaje,$idUser, $idProduct,  ));
+        $query->execute(array($comment,$puntuacion,$id_user, $id_product ));
         return $query->rowCount();
     }
 
@@ -32,9 +32,9 @@ class CommentModel{
         return $comment;
     }
 
-    function deleteComment($id){
-        $query = $this->db->prepare("DELETE FROM comentario WHERE id=?");
-        $query->execute(array($id));
+    function deleteComment($id_comment){
+        $query = $this->db->prepare("DELETE FROM comments WHERE id_comment=?");
+        $query->execute(array($id_comment));
         return $query->rowCount();
     }
 }

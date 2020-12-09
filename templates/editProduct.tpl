@@ -41,7 +41,7 @@
                         <label class="input-group-text" for="selectCategory">Options</label>
                 </div>
                 <select class="custom-select" id="id_mostrar" name="id_category">
-                    <option selected>{$Seleccionar}</option>
+                    
                     {foreach from=$categorias item=category}
                         <option value="{$category->id_category}">{$category->name_caegory}</option>
                     {/foreach}

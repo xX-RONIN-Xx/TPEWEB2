@@ -1,15 +1,12 @@
 <?php
-
 require_once "./apps/views/UserView.php";
 require_once "./apps/views/ProductView.php";
 require_once "./apps/models/UserModel.php";
 
 class UserController
 {
-
     private $view;
     private $model;
-
     function __construct()
     {
         $this->view = new UserView();
@@ -17,9 +14,9 @@ class UserController
         $this->model = new UserModel();
     }
 
-    function Login()
+    function Login($error=null)
     {
-        $this->view->showLogin();
+        $this->view->showLogin($error=null);
     }
 
     function Logout()
@@ -38,50 +35,45 @@ class UserController
         }
         return $isLogged;
     }
-
-
-    public function loginUser()
-    {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        // verifico campos obligatorios
-        if (empty($email) || empty($password)) {
-            $this->Login("Faltan datos obligatorios");
-            die();
-        }
-
-        // obtengo el usuario
-        $user = $this->model->getUser($email);
-
-        // si el usuario existe, y las contraseñas coinciden
-        if ($user && password_verify($password, $user->password)) {
-
+function loginUser(){
+    $user = $_POST["email"];
+    $pass = $_POST["password"];
+    if(isset($user)){
+    $userFromDB = $this->model->getUser($user);
+    if(isset($userFromDB) && $user){
+        $hash=$userFromDB->password;
+        if(password_verify($pass, $hash)){
             session_start();
-            $_SESSION["ID_USER"] = $user->id_user;
-            $_SESSION["EMAIL"] = $user->email;
-            $_SESSION["PASS"] = $user->password;
-            $_SESSION["ADMINISTRADOR"] = $user->admin;
-            header("Location: " . BASE_URL . "productos");
-        } else {
-            $this->view->showLogin("Credenciales inválidas");
+            $_SESSION['EMAIL'] = $userFromDB->email;
+            $_SESSION["ID_USER"] = $userFromDB->id_user;
+            $_SESSION["ADMINISTRADOR"] = $userFromDB->admin;
+            header("Location: " . BASE_URL);
+        }
+        else{
+            $this->view->ShowLogin("Contraseña incorrecta");
+            }
+        }
+        else{
+        // No existe el user en la DB
+        $this->view->ShowLogin("El usuario no existe");
         }
     }
-
+}
+   
     function register()
     {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $users = $this->model->getUsers();
-
-        if ($email != '' && $password != '') {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        
+        if (!empty($email) && !empty($password)) {
+            $users = $this->model->getUsers();
+           
             foreach ($users as $user) {
                 if ($email != $user->email) {
-                    $emailYaExiste = false;
+                    $emailYaExiste = false;             
                 } else {
                     $emailYaExiste = true;
-                    $this->view->showRegistro('el email ingresado ya existe');
+                    $this->view->showReg("el email ingresado ya existe");
                     die();
                 }
             }
@@ -96,12 +88,13 @@ class UserController
                 header("Location: " . BASE_URL);
             }
         } else {
-            header("Location: " . "registrarse");
-        }
+            $this->view->showReg("Faltan datos obligatorios");
+            }
     }
+
     public function showRegistro()
     {
-        $this->view->showRegistro();
+        $this->view->showReg();
     }
 
 
@@ -124,7 +117,6 @@ class UserController
             }
 
             $this->model->editUser($siAdmin, $id_usuario);
-
             header("Location: " . "usuarios");
         }
     }

@@ -37,6 +37,7 @@ class UserModel
         $query = $this->db->prepare("UPDATE users SET admin=? WHERE id_user=?");
         $query->execute(array($admin,$id));
     }
+    
     function deleteUser($id){
         $query=$this->db->prepare("DELETE FROM users WHERE id_user=?");
         $query->execute([$id]);
